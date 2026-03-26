@@ -1,0 +1,666 @@
+
+> educrm@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.7.2:3000
+- Environments: .env
+✓ Ready in 374ms
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+ GET /login 200 in 1845ms (next.js: 1740ms, proxy.ts: 4ms, application-code: 100ms)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/login" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="es" className="dm_sans_87...">
+                          <head>
+                          <body
++                           className="min-h-screen bg-[var(--color-surface-secondary)]"
+-                           className="min-h-screen bg-[var(--color-surface-secondary)] antigravity-scroll-lock"
+                          >
+                  ...
+ 
+ GET /icons/icon-192.png 404 in 397ms (next.js: 354ms, proxy.ts: 5ms, application-code: 39ms)
+ POST /login 200 in 462ms (next.js: 12ms, proxy.ts: 13ms, application-code: 436ms)
+  └─ ƒ loginAction("admin@colegio.com", "demo1234") in 376ms src/app/actions.ts
+ GET /pipeline 200 in 748ms (next.js: 555ms, proxy.ts: 6ms, application-code: 187ms)
+ GET /pipeline 200 in 114ms (next.js: 8ms, proxy.ts: 4ms, application-code: 103ms)
+ GET /icons/icon-192.png 404 in 33ms (next.js: 6ms, proxy.ts: 3ms, application-code: 25ms)
+ GET /leads 200 in 940ms (next.js: 887ms, proxy.ts: 6ms, application-code: 46ms)
+ GET /icons/icon-192.png 404 in 48ms (next.js: 7ms, proxy.ts: 3ms, application-code: 38ms)
+ GET /leads 200 in 66ms (next.js: 6ms, proxy.ts: 12ms, application-code: 48ms)
+ GET /icons/icon-192.png 404 in 73ms (next.js: 5ms, proxy.ts: 3ms, application-code: 65ms)
+ GET /inbox 200 in 884ms (next.js: 799ms, proxy.ts: 17ms, application-code: 68ms)
+ POST /inbox 200 in 43ms (next.js: 11ms, proxy.ts: 22ms, application-code: 10ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 4ms src/app/actions.ts
+ POST /inbox 200 in 54ms (next.js: 12ms, proxy.ts: 17ms, application-code: 26ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 11ms src/app/actions.ts
+ GET /icons/icon-192.png 404 in 90ms (next.js: 9ms, proxy.ts: 1936µs, application-code: 79ms)
+ GET /appointments 200 in 572ms (next.js: 532ms, proxy.ts: 14ms, application-code: 26ms)
+ GET /icons/icon-192.png 404 in 39ms (next.js: 6ms, proxy.ts: 3ms, application-code: 31ms)
+ GET /enrollments 200 in 598ms (next.js: 488ms, proxy.ts: 10ms, application-code: 99ms)
+ GET /icons/icon-192.png 404 in 37ms (next.js: 5ms, proxy.ts: 2ms, application-code: 29ms)
+ GET /analytics 200 in 406ms (next.js: 364ms, proxy.ts: 7ms, application-code: 35ms)
+ GET /icons/icon-192.png 404 in 31ms (next.js: 4ms, proxy.ts: 1545µs, application-code: 25ms)
+ GET /settings 200 in 653ms (next.js: 606ms, proxy.ts: 10ms, application-code: 37ms)
+ GET /icons/icon-192.png 404 in 66ms (next.js: 24ms, proxy.ts: 1629µs, application-code: 41ms)
+ GET /pipeline 200 in 122ms (next.js: 6ms, proxy.ts: 8ms, application-code: 108ms)
+ GET /icons/icon-192.png 404 in 54ms (next.js: 11ms, proxy.ts: 5ms, application-code: 38ms)
+ POST /pipeline 200 in 139ms (next.js: 5ms, proxy.ts: 25ms, application-code: 110ms)
+  └─ ƒ moveLeadStage("cmn51pjl8000isfjtbpd816ly", "Contactado") in 9ms src/app/actions.ts
+ GET /icons/icon-192.png 404 in 49ms (next.js: 6ms, proxy.ts: 2ms, application-code: 41ms)
+ GET /leads/cmn51pjky0004sfjtxgujkepm 200 in 1126ms (next.js: 1073ms, proxy.ts: 11ms, application-code: 42ms)
+ GET /icons/icon-192.png 404 in 39ms (next.js: 5ms, proxy.ts: 10ms, application-code: 25ms)
+✓ Compiled in 157ms
+✓ Compiled in 90ms
+✓ Compiled in 137ms
+ GET /pipeline 200 in 55ms (next.js: 13ms, proxy.ts: 15ms, application-code: 26ms)
+ GET /icons/icon-192.png 404 in 34ms (next.js: 7ms, proxy.ts: 2ms, application-code: 24ms)
+ POST /pipeline 200 in 51ms (next.js: 2ms, proxy.ts: 2ms, application-code: 46ms)
+  └─ ƒ moveLeadStage("cmn51pjl10006sfjt6vkqmu4b", "Nuevo") in 4ms src/app/actions.ts
+ GET /icons/icon-192.png 404 in 30ms (next.js: 6ms, proxy.ts: 1542µs, application-code: 22ms)
+ POST /pipeline 200 in 41ms (next.js: 2ms, proxy.ts: 5ms, application-code: 34ms)
+  └─ ƒ moveLeadStage("cmn51pjl20008sfjtmf77mrar", "Visita Programada") in 6ms src/app/actions.ts
+ GET /icons/icon-192.png 404 in 24ms (next.js: 2ms, proxy.ts: 1421µs, application-code: 20ms)
+ GET /inbox 200 in 29ms (next.js: 7ms, proxy.ts: 4ms, application-code: 18ms)
+ POST /inbox 200 in 46ms (next.js: 3ms, proxy.ts: 7ms, application-code: 37ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 4ms src/app/actions.ts
+ GET /icons/icon-192.png 404 in 53ms (next.js: 6ms, proxy.ts: 1866µs, application-code: 45ms)
+ POST /inbox 200 in 13ms (next.js: 2ms, proxy.ts: 4ms, application-code: 6ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 2ms src/app/actions.ts
+ GET /leads 200 in 29ms (next.js: 7ms, proxy.ts: 3ms, application-code: 19ms)
+ GET /icons/icon-192.png 404 in 29ms (next.js: 3ms, proxy.ts: 1979µs, application-code: 24ms)
+ GET /inbox 200 in 26ms (next.js: 2ms, proxy.ts: 3ms, application-code: 20ms)
+ POST /inbox 200 in 25ms (next.js: 4ms, proxy.ts: 5ms, application-code: 17ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 5ms src/app/actions.ts
+ GET /icons/icon-192.png 404 in 49ms (next.js: 15ms, proxy.ts: 3ms, application-code: 31ms)
+ POST /inbox 200 in 35ms (next.js: 5ms, proxy.ts: 23ms, application-code: 7ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 2ms src/app/actions.ts
+ GET /appointments 200 in 32ms (next.js: 7ms, proxy.ts: 4ms, application-code: 21ms)
+ GET /icons/icon-192.png 404 in 30ms (next.js: 5ms, proxy.ts: 1481µs, application-code: 24ms)
+ GET /enrollments 200 in 30ms (next.js: 6ms, proxy.ts: 4ms, application-code: 20ms)
+ GET /icons/icon-192.png 404 in 36ms (next.js: 3ms, proxy.ts: 1944µs, application-code: 31ms)
+ GET /analytics 200 in 34ms (next.js: 7ms, proxy.ts: 5ms, application-code: 22ms)
+ GET /icons/icon-192.png 404 in 33ms (next.js: 3ms, proxy.ts: 1663µs, application-code: 29ms)
+ GET /settings 200 in 27ms (next.js: 6ms, proxy.ts: 3ms, application-code: 18ms)
+ GET /icons/icon-192.png 404 in 31ms (next.js: 4ms, proxy.ts: 1478µs, application-code: 25ms)
+ GET /analytics 200 in 24ms (next.js: 2ms, proxy.ts: 3ms, application-code: 19ms)
+ GET /icons/icon-192.png 404 in 47ms (next.js: 5ms, proxy.ts: 5ms, application-code: 36ms)
+ GET /enrollments 200 in 24ms (next.js: 3ms, proxy.ts: 3ms, application-code: 18ms)
+ GET /icons/icon-192.png 404 in 29ms (next.js: 3ms, proxy.ts: 1796µs, application-code: 24ms)
+ GET /appointments 200 in 30ms (next.js: 4ms, proxy.ts: 4ms, application-code: 22ms)
+ GET /icons/icon-192.png 404 in 30ms (next.js: 3ms, proxy.ts: 1575µs, application-code: 25ms)
+ GET /inbox 200 in 22ms (next.js: 2ms, proxy.ts: 3ms, application-code: 17ms)
+ POST /inbox 200 in 22ms (next.js: 4ms, proxy.ts: 9ms, application-code: 9ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 2ms src/app/actions.ts
+ POST /inbox 200 in 33ms (next.js: 22ms, proxy.ts: 4ms, application-code: 7ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 3ms src/app/actions.ts
+ GET /icons/icon-192.png 404 in 40ms (next.js: 8ms, proxy.ts: 3ms, application-code: 29ms)
+ GET /leads 200 in 24ms (next.js: 3ms, proxy.ts: 3ms, application-code: 19ms)
+ GET /icons/icon-192.png 404 in 25ms (next.js: 3ms, proxy.ts: 1326µs, application-code: 21ms)
+ GET /pipeline 200 in 30ms (next.js: 4ms, proxy.ts: 3ms, application-code: 23ms)
+ GET /icons/icon-192.png 404 in 30ms (next.js: 5ms, proxy.ts: 1314µs, application-code: 24ms)
+ GET /leads 200 in 21ms (next.js: 1715µs, proxy.ts: 3ms, application-code: 16ms)
+ GET /icons/icon-192.png 404 in 34ms (next.js: 4ms, proxy.ts: 3ms, application-code: 27ms)
+ GET /enrollments 200 in 30ms (next.js: 5ms, proxy.ts: 3ms, application-code: 22ms)
+ GET /icons/icon-192.png 404 in 32ms (next.js: 4ms, proxy.ts: 2ms, application-code: 26ms)
+ GET /inbox 200 in 26ms (next.js: 1907µs, proxy.ts: 3ms, application-code: 21ms)
+ POST /inbox 200 in 34ms (next.js: 11ms, proxy.ts: 8ms, application-code: 16ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 5ms src/app/actions.ts
+ POST /inbox 200 in 61ms (next.js: 5ms, proxy.ts: 11ms, application-code: 45ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 29ms src/app/actions.ts
+ GET /icons/icon-192.png 404 in 71ms (next.js: 32ms, proxy.ts: 4ms, application-code: 35ms)
+ GET /leads 200 in 25ms (next.js: 3ms, proxy.ts: 3ms, application-code: 19ms)
+ GET /icons/icon-192.png 404 in 48ms (next.js: 6ms, proxy.ts: 2ms, application-code: 39ms)
+ GET /pipeline 200 in 26ms (next.js: 3ms, proxy.ts: 4ms, application-code: 19ms)
+ GET /icons/icon-192.png 404 in 32ms (next.js: 5ms, proxy.ts: 1837µs, application-code: 25ms)
+ GET /leads/cmn51pjky0004sfjtxgujkepm 200 in 35ms (next.js: 10ms, proxy.ts: 3ms, application-code: 22ms)
+ GET /icons/icon-192.png 404 in 31ms (next.js: 3ms, proxy.ts: 1847µs, application-code: 26ms)
+ GET /inbox 200 in 24ms (next.js: 4ms, proxy.ts: 3ms, application-code: 17ms)
+ POST /inbox 200 in 21ms (next.js: 5ms, proxy.ts: 6ms, application-code: 9ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 3ms src/app/actions.ts
+ POST /inbox 200 in 35ms (next.js: 22ms, proxy.ts: 5ms, application-code: 8ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 2ms src/app/actions.ts
+ GET /icons/icon-192.png 404 in 43ms (next.js: 8ms, proxy.ts: 4ms, application-code: 31ms)
+ POST /inbox 200 in 14ms (next.js: 2ms, proxy.ts: 3ms, application-code: 9ms)
+  └─ ƒ getLeadMessages("cmn51pjky0004sfjtxgujkepm") in 3ms src/app/actions.ts
+ POST /inbox 200 in 15ms (next.js: 2ms, proxy.ts: 4ms, application-code: 9ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 3ms src/app/actions.ts
+ GET /analytics 200 in 28ms (next.js: 4ms, proxy.ts: 3ms, application-code: 21ms)
+ GET /icons/icon-192.png 404 in 32ms (next.js: 5ms, proxy.ts: 2ms, application-code: 24ms)
+ GET /settings 200 in 25ms (next.js: 4ms, proxy.ts: 3ms, application-code: 19ms)
+ GET /icons/icon-192.png 404 in 48ms (next.js: 5ms, proxy.ts: 3ms, application-code: 40ms)
+ GET /pipeline 200 in 33ms (next.js: 5ms, proxy.ts: 3ms, application-code: 25ms)
+ GET /icons/icon-192.png 404 in 40ms (next.js: 5ms, proxy.ts: 4ms, application-code: 31ms)
+ GET /leads 200 in 27ms (next.js: 3ms, proxy.ts: 3ms, application-code: 21ms)
+ GET /icons/icon-192.png 404 in 36ms (next.js: 5ms, proxy.ts: 1600µs, application-code: 30ms)
+ GET /inbox 200 in 29ms (next.js: 3ms, proxy.ts: 6ms, application-code: 20ms)
+ POST /inbox 200 in 21ms (next.js: 3ms, proxy.ts: 7ms, application-code: 10ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 3ms src/app/actions.ts
+ POST /inbox 200 in 40ms (next.js: 25ms, proxy.ts: 4ms, application-code: 11ms)
+  └─ ƒ getLeadMessages("cmn51pjl10006sfjt6vkqmu4b") in 4ms src/app/actions.ts
+ GET /icons/icon-192.png 404 in 51ms (next.js: 7ms, proxy.ts: 5ms, application-code: 39ms)
+ GET /appointments 200 in 30ms (next.js: 7ms, proxy.ts: 3ms, application-code: 20ms)
+ GET /icons/icon-192.png 404 in 28ms (next.js: 2ms, proxy.ts: 1449µs, application-code: 24ms)
+ GET /enrollments 200 in 26ms (next.js: 4ms, proxy.ts: 3ms, application-code: 19ms)
+ GET /icons/icon-192.png 404 in 31ms (next.js: 4ms, proxy.ts: 1483µs, application-code: 26ms)
+ GET /analytics 200 in 25ms (next.js: 3ms, proxy.ts: 2ms, application-code: 20ms)
+ GET /icons/icon-192.png 404 in 32ms (next.js: 3ms, proxy.ts: 1721µs, application-code: 27ms)
+ GET /icons/icon-192.png 404 in 34ms (next.js: 5ms, proxy.ts: 1876µs, application-code: 28ms)
+ GET /enrollments 200 in 480ms (next.js: 165ms, proxy.ts: 107ms, application-code: 209ms)
+ GET /enrollments 200 in 194ms (next.js: 15ms, proxy.ts: 22ms, application-code: 157ms)
+ GET /enrollments 200 in 165ms (next.js: 9ms, proxy.ts: 40ms, application-code: 116ms)
+ GET /enrollments 200 in 121ms (next.js: 6ms, proxy.ts: 6ms, application-code: 110ms)
+ GET /enrollments 200 in 118ms (next.js: 8ms, proxy.ts: 9ms, application-code: 100ms)
+ GET /enrollments 200 in 125ms (next.js: 4ms, proxy.ts: 9ms, application-code: 113ms)
+ GET /enrollments 200 in 150ms (next.js: 8ms, proxy.ts: 10ms, application-code: 132ms)
+ GET /enrollments 200 in 128ms (next.js: 7ms, proxy.ts: 8ms, application-code: 113ms)
+ GET /enrollments 200 in 104ms (next.js: 8ms, proxy.ts: 5ms, application-code: 91ms)
+ GET /enrollments 200 in 97ms (next.js: 3ms, proxy.ts: 6ms, application-code: 87ms)
+ GET /enrollments 200 in 90ms (next.js: 3ms, proxy.ts: 5ms, application-code: 82ms)
+ GET /enrollments 200 in 94ms (next.js: 3ms, proxy.ts: 7ms, application-code: 84ms)
+ GET /enrollments 200 in 96ms (next.js: 4ms, proxy.ts: 6ms, application-code: 86ms)
+ GET /enrollments 200 in 94ms (next.js: 5ms, proxy.ts: 6ms, application-code: 83ms)
+ GET /enrollments 200 in 119ms (next.js: 5ms, proxy.ts: 7ms, application-code: 108ms)
+ GET /enrollments 200 in 115ms (next.js: 3ms, proxy.ts: 6ms, application-code: 106ms)
+ GET /enrollments 200 in 120ms (next.js: 5ms, proxy.ts: 6ms, application-code: 108ms)
+ GET /enrollments 200 in 124ms (next.js: 3ms, proxy.ts: 7ms, application-code: 114ms)
+ GET /enrollments 200 in 119ms (next.js: 6ms, proxy.ts: 4ms, application-code: 109ms)
+ GET /enrollments 200 in 116ms (next.js: 6ms, proxy.ts: 6ms, application-code: 104ms)
+ GET /enrollments 200 in 128ms (next.js: 9ms, proxy.ts: 7ms, application-code: 111ms)
+ GET /enrollments 200 in 115ms (next.js: 3ms, proxy.ts: 6ms, application-code: 106ms)
+ GET /enrollments 200 in 90ms (next.js: 3ms, proxy.ts: 6ms, application-code: 81ms)
+ GET /enrollments 200 in 69ms (next.js: 4ms, proxy.ts: 7ms, application-code: 59ms)
+✓ Compiled in 113ms
+ GET /enrollments 200 in 174ms (next.js: 82ms, proxy.ts: 12ms, application-code: 80ms)
+ GET /enrollments 200 in 48ms (next.js: 10ms, proxy.ts: 8ms, application-code: 30ms)
+ GET /icons/icon-192.png 404 in 70ms (next.js: 14ms, proxy.ts: 1693µs, application-code: 54ms)
+✓ Compiled in 23ms
+ GET /enrollments 200 in 121ms (next.js: 8ms, proxy.ts: 7ms, application-code: 106ms)
+ GET /icons/icon-192.png 404 in 48ms (next.js: 13ms, proxy.ts: 2ms, application-code: 32ms)
+✓ Compiled in 82ms
+ GET /enrollments 200 in 307ms (next.js: 105ms, proxy.ts: 36ms, application-code: 166ms)
+ GET /enrollments 200 in 154ms (next.js: 5ms, proxy.ts: 6ms, application-code: 142ms)
+ GET /enrollments 200 in 137ms (next.js: 4ms, proxy.ts: 7ms, application-code: 126ms)
+ GET /enrollments 200 in 102ms (next.js: 3ms, proxy.ts: 6ms, application-code: 93ms)
+ GET /enrollments 200 in 74ms (next.js: 8ms, proxy.ts: 32ms, application-code: 34ms)
+ GET /icons/icon-192.png 404 in 94ms (next.js: 14ms, proxy.ts: 2ms, application-code: 78ms)
+✓ Compiled in 51ms
+ GET /enrollments 200 in 481ms (next.js: 148ms, proxy.ts: 10ms, application-code: 323ms)
+ GET /enrollments 200 in 233ms (next.js: 84ms, proxy.ts: 37ms, application-code: 112ms)
+ GET /enrollments 200 in 100ms (next.js: 2ms, proxy.ts: 6ms, application-code: 92ms)
+ GET /enrollments 200 in 136ms (next.js: 4ms, proxy.ts: 8ms, application-code: 123ms)
+ GET /enrollments 200 in 151ms (next.js: 4ms, proxy.ts: 7ms, application-code: 140ms)
+ GET /enrollments 200 in 131ms (next.js: 5ms, proxy.ts: 7ms, application-code: 120ms)
+ GET /enrollments 200 in 124ms (next.js: 10ms, proxy.ts: 8ms, application-code: 106ms)
+ GET /enrollments 200 in 123ms (next.js: 7ms, proxy.ts: 8ms, application-code: 108ms)
+ GET /enrollments 200 in 108ms (next.js: 6ms, proxy.ts: 6ms, application-code: 97ms)
+ GET /enrollments 200 in 109ms (next.js: 3ms, proxy.ts: 8ms, application-code: 99ms)
+ GET /enrollments 200 in 104ms (next.js: 6ms, proxy.ts: 7ms, application-code: 91ms)
+ GET /enrollments 200 in 99ms (next.js: 5ms, proxy.ts: 10ms, application-code: 85ms)
+ GET /enrollments 200 in 115ms (next.js: 6ms, proxy.ts: 8ms, application-code: 101ms)
+ GET /enrollments 200 in 115ms (next.js: 4ms, proxy.ts: 6ms, application-code: 106ms)
+ GET /enrollments 200 in 123ms (next.js: 4ms, proxy.ts: 6ms, application-code: 113ms)
+ GET /enrollments 200 in 104ms (next.js: 3ms, proxy.ts: 6ms, application-code: 95ms)
+ GET /enrollments 200 in 110ms (next.js: 3ms, proxy.ts: 13ms, application-code: 94ms)
+ GET /enrollments 200 in 102ms (next.js: 5ms, proxy.ts: 7ms, application-code: 91ms)
+ GET /enrollments 200 in 116ms (next.js: 5ms, proxy.ts: 6ms, application-code: 105ms)
+ GET /enrollments 200 in 118ms (next.js: 11ms, proxy.ts: 4ms, application-code: 102ms)
+ GET /enrollments 200 in 114ms (next.js: 3ms, proxy.ts: 6ms, application-code: 105ms)
+ GET /enrollments 200 in 101ms (next.js: 4ms, proxy.ts: 6ms, application-code: 92ms)
+ GET /enrollments 200 in 112ms (next.js: 3ms, proxy.ts: 6ms, application-code: 104ms)
+ GET /enrollments 200 in 118ms (next.js: 3ms, proxy.ts: 7ms, application-code: 107ms)
+ GET /enrollments 200 in 102ms (next.js: 8ms, proxy.ts: 8ms, application-code: 86ms)
+ GET /icons/icon-192.png 404 in 63ms (next.js: 12ms, proxy.ts: 1717µs, application-code: 49ms)
+✓ Compiled in 53ms
+ GET /enrollments 200 in 404ms (next.js: 118ms, proxy.ts: 10ms, application-code: 276ms)
+ GET /enrollments 200 in 238ms (next.js: 77ms, proxy.ts: 32ms, application-code: 129ms)
+ GET /enrollments 200 in 111ms (next.js: 3ms, proxy.ts: 5ms, application-code: 102ms)
+ GET /enrollments 200 in 114ms (next.js: 6ms, proxy.ts: 8ms, application-code: 100ms)
+ GET /enrollments 200 in 138ms (next.js: 4ms, proxy.ts: 6ms, application-code: 128ms)
+ GET /enrollments 200 in 111ms (next.js: 4ms, proxy.ts: 8ms, application-code: 98ms)
+ GET /enrollments 200 in 110ms (next.js: 5ms, proxy.ts: 8ms, application-code: 97ms)
+ GET /enrollments 200 in 111ms (next.js: 6ms, proxy.ts: 6ms, application-code: 99ms)
+ GET /enrollments 200 in 137ms (next.js: 5ms, proxy.ts: 8ms, application-code: 123ms)
+ GET /enrollments 200 in 134ms (next.js: 5ms, proxy.ts: 7ms, application-code: 121ms)
+ GET /enrollments 200 in 131ms (next.js: 5ms, proxy.ts: 8ms, application-code: 117ms)
+ GET /enrollments 200 in 123ms (next.js: 4ms, proxy.ts: 8ms, application-code: 112ms)
+ GET /enrollments 200 in 118ms (next.js: 4ms, proxy.ts: 7ms, application-code: 108ms)
+ GET /enrollments 200 in 123ms (next.js: 4ms, proxy.ts: 10ms, application-code: 109ms)
+ GET /enrollments 200 in 117ms (next.js: 3ms, proxy.ts: 7ms, application-code: 107ms)
+ GET /enrollments 200 in 117ms (next.js: 3ms, proxy.ts: 7ms, application-code: 107ms)
+ GET /enrollments 200 in 123ms (next.js: 4ms, proxy.ts: 7ms, application-code: 112ms)
+ GET /enrollments 200 in 121ms (next.js: 3ms, proxy.ts: 6ms, application-code: 112ms)
+ GET /enrollments 200 in 125ms (next.js: 3ms, proxy.ts: 10ms, application-code: 113ms)
+ GET /enrollments 200 in 106ms (next.js: 3ms, proxy.ts: 6ms, application-code: 96ms)
+ GET /enrollments 200 in 106ms (next.js: 4ms, proxy.ts: 11ms, application-code: 91ms)
+ GET /enrollments 200 in 102ms (next.js: 3ms, proxy.ts: 6ms, application-code: 93ms)
+ GET /enrollments 200 in 99ms (next.js: 4ms, proxy.ts: 7ms, application-code: 88ms)
+ GET /enrollments 200 in 71ms (next.js: 5ms, proxy.ts: 10ms, application-code: 56ms)
+ GET /enrollments 200 in 40ms (next.js: 4ms, proxy.ts: 7ms, application-code: 29ms)
+ GET /icons/icon-192.png 404 in 77ms (next.js: 14ms, proxy.ts: 1724µs, application-code: 61ms)
+ GET /enrollments 200 in 334ms (next.js: 91ms, proxy.ts: 86ms, application-code: 157ms)
+ GET /enrollments 200 in 118ms (next.js: 4ms, proxy.ts: 15ms, application-code: 98ms)
+ GET /enrollments 200 in 133ms (next.js: 4ms, proxy.ts: 7ms, application-code: 122ms)
+ GET /enrollments 200 in 137ms (next.js: 3ms, proxy.ts: 8ms, application-code: 127ms)
+ GET /enrollments 200 in 163ms (next.js: 10ms, proxy.ts: 18ms, application-code: 135ms)
+ GET /enrollments 200 in 123ms (next.js: 5ms, proxy.ts: 11ms, application-code: 107ms)
+ GET /enrollments 200 in 123ms (next.js: 4ms, proxy.ts: 7ms, application-code: 112ms)
+ GET /enrollments 200 in 128ms (next.js: 5ms, proxy.ts: 10ms, application-code: 114ms)
+ GET /enrollments 200 in 146ms (next.js: 6ms, proxy.ts: 11ms, application-code: 130ms)
+ GET /enrollments 200 in 123ms (next.js: 13ms, proxy.ts: 10ms, application-code: 100ms)
+ GET /enrollments 200 in 133ms (next.js: 5ms, proxy.ts: 9ms, application-code: 119ms)
+ GET /enrollments 200 in 112ms (next.js: 4ms, proxy.ts: 7ms, application-code: 101ms)
+ GET /enrollments 200 in 130ms (next.js: 4ms, proxy.ts: 7ms, application-code: 119ms)
+ GET /enrollments 200 in 116ms (next.js: 4ms, proxy.ts: 7ms, application-code: 104ms)
+ GET /enrollments 200 in 135ms (next.js: 5ms, proxy.ts: 8ms, application-code: 122ms)
+ GET /enrollments 200 in 119ms (next.js: 8ms, proxy.ts: 8ms, application-code: 103ms)
+ GET /enrollments 200 in 136ms (next.js: 7ms, proxy.ts: 10ms, application-code: 119ms)
+ GET /enrollments 200 in 146ms (next.js: 6ms, proxy.ts: 8ms, application-code: 132ms)
+ GET /enrollments 200 in 148ms (next.js: 8ms, proxy.ts: 8ms, application-code: 133ms)
+ GET /enrollments 200 in 142ms (next.js: 4ms, proxy.ts: 8ms, application-code: 130ms)
+ GET /enrollments 200 in 137ms (next.js: 4ms, proxy.ts: 7ms, application-code: 126ms)
+ GET /enrollments 200 in 103ms (next.js: 3ms, proxy.ts: 8ms, application-code: 92ms)
+ GET /enrollments 200 in 117ms (next.js: 3ms, proxy.ts: 7ms, application-code: 107ms)
+ GET /enrollments 200 in 152ms (next.js: 3ms, proxy.ts: 6ms, application-code: 143ms)
+ GET /enrollments 200 in 157ms (next.js: 6ms, proxy.ts: 9ms, application-code: 142ms)
+ GET /enrollments 200 in 145ms (next.js: 15ms, proxy.ts: 12ms, application-code: 118ms)
+ GET /enrollments 200 in 72ms (next.js: 4ms, proxy.ts: 10ms, application-code: 59ms)
+ GET /enrollments 200 in 38ms (next.js: 5ms, proxy.ts: 6ms, application-code: 28ms)
+ GET /icons/icon-192.png 404 in 85ms (next.js: 17ms, proxy.ts: 2ms, application-code: 65ms)
+✓ Compiled in 161ms
+ GET /enrollments 200 in 383ms (next.js: 92ms, proxy.ts: 60ms, application-code: 231ms)
+ GET /enrollments 200 in 173ms (next.js: 87ms, proxy.ts: 14ms, application-code: 72ms)
+ GET /icons/icon-192.png 404 in 93ms (next.js: 16ms, proxy.ts: 10ms, application-code: 67ms)
+✓ Compiled in 98ms
+ GET /settings 200 in 275ms (next.js: 40ms, proxy.ts: 50ms, application-code: 185ms)
+[browser] Uncaught Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+      <LoadingBoundary name="settings/" loading={null}>
+        <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+          <RedirectBoundary>
+            <RedirectErrorBoundary router={{...}}>
+              <InnerLayoutRouter url="/settings" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} ...>
+                <SegmentViewNode type="page" pagePath="(dashboard...">
+                  <SegmentTrieNode>
+                  <SettingsPage>
+                    <div className="px-4 md:px...">
+                      <div>
+                      <SettingsClient settings={{id:"cmn51p...", ...}}>
+                        <div className="space-y-6">
+                          <div>
+                          <div>
+                          <div>
+                          <div className="card p-5">
+                            <h3>
+                            <p>
+                            <div className="p-4 rounde..." style={{...}}>
+                              <label>
+                              <div className="flex items...">
+                                <code
+                                  className="flex-1 text-xs p-2 rounded-lg bg-white border"
+                                  style={{borderColor:"var(--colo..."}}
+                                >
++                                 http://localhost:3000/api/webhooks/meta?tenantId=cmn51pjcl0000sfjtchnhjzks
+-                                 
+                                ...
+                              ...
+                          ...
+                ...
+              ...
+
+    at <unknown> (https://react.dev/link/hydration-mismatch)
+    at code (<anonymous>)
+    at SettingsClient (src/components/settings/SettingsClient.tsx:136:13)
+    at SettingsPage (src/app/(dashboard)/settings/page.tsx:18:7)
+  134 |           </label>
+  135 |           <div className="flex items-center gap-2">
+> 136 |             <code className="flex-1 text-xs p-2 rounded-lg bg-white border" style={{ bord...
+      |             ^
+  137 |               {typeof window !== 'undefined' ? `${window.location.origin}/api/webhooks/me...
+  138 |             </code>
+  139 |             <button 
+ GET /icons/icon-192.png 404 in 264ms (next.js: 21ms, proxy.ts: 4ms, application-code: 240ms)
+ GET /icons/icon-192.png 404 in 49ms (next.js: 7ms, proxy.ts: 4ms, application-code: 38ms)
+file:///Users/test/Test_youtube/educrm/node_modules/@prisma/client/runtime/library.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: TypeError [ERR_INVALID_ARG_TYPE]: The "payload" argument must be of type object. Received null
+⨯ Error [PrismaClientValidationError]: 
+Invalid `{imported module ./src/lib/db.ts}["prisma"].lead.findMany()` invocation in
+/Users/test/Test_youtube/educrm/.next/dev/server/chunks/ssr/_069p323._.js:557:137
+
+  554         }
+  555     }
+  556 }),
+→ 557 {imported module ./src/lib/db.ts}["prisma"].lead.findMany({
+        where: {
+          tenantId: "cmn51pjcl0000sfjtchnhjzks",
+          deletedAt: null
+        },
+        select: {
+          source: true,
+          status: true,
+          product: {
+          ~~~~~~~
+            select: {
+              price: true
+            }
+          },
+      ?   id?: true,
+      ?   tenantId?: true,
+      ?   studentName?: true,
+      ?   guardianName?: true,
+      ?   phone?: true,
+      ?   whatsapp?: true,
+      ?   email?: true,
+      ?   studentAge?: true,
+      ?   gradeInterest?: true,
+      ?   campus?: true,
+      ?   interestReason?: true,
+      ?   notes?: true,
+      ?   nextAction?: true,
+      ?   nextActionAt?: true,
+      ?   lastInteractionAt?: true,
+      ?   lostReason?: true,
+      ?   createdAt?: true,
+      ?   updatedAt?: true,
+      ?   deletedAt?: true,
+      ?   tenant?: true,
+      ?   messages?: true,
+      ?   appointments?: true,
+      ?   enrollment?: true,
+      ?   _count?: true
+        }
+      })
+
+Unknown field `product` for select statement on model `Lead`. Available options are marked with ?.
+    at <unknown> (src/app/actions.ts:445:17)
+    at async getDashboardStats (src/app/actions.ts:437:7)
+    at async AnalyticsPage (src/app/(dashboard)/analytics/page.tsx:5:17)
+  443 |       where: { tenantId, closedAt: { gte: startOfMonth } },
+  444 |     }),
+> 445 |     prisma.lead.findMany({
+      |                 ^
+  446 |       where: { tenantId, deletedAt: null },
+  447 |       select: { source: true, status: true, product: { select: { price: true } } },
+  448 |     }), {
+  clientVersion: '5.22.0',
+  digest: '4174135902'
+}
+ GET /analytics 500 in 159ms (next.js: 24ms, proxy.ts: 7ms, application-code: 129ms)
+[browser] Uncaught PrismaClientValidationError: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].lead.findMany()` invocation in
+/Users/test/Test_youtube/educrm/.next/dev/server/chunks/ssr/_069p323._.js:557:137
+
+  554         }
+  555     }
+  556 }),
+→ 557 __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].lead.findMany({
+        where: {
+          tenantId: "cmn51pjcl0000sfjtchnhjzks",
+          deletedAt: null
+        },
+        select: {
+          source: true,
+          status: true,
+          product: {
+          ~~~~~~~
+            select: {
+              price: true
+            }
+          },
+      ?   id?: true,
+      ?   tenantId?: true,
+      ?   studentName?: true,
+      ?   guardianName?: true,
+      ?   phone?: true,
+      ?   whatsapp?: true,
+      ?   email?: true,
+      ?   studentAge?: true,
+      ?   gradeInterest?: true,
+      ?   campus?: true,
+      ?   interestReason?: true,
+      ?   notes?: true,
+      ?   nextAction?: true,
+      ?   nextActionAt?: true,
+      ?   lastInteractionAt?: true,
+      ?   lostReason?: true,
+      ?   createdAt?: true,
+      ?   updatedAt?: true,
+      ?   deletedAt?: true,
+      ?   tenant?: true,
+      ?   messages?: true,
+      ?   appointments?: true,
+      ?   enrollment?: true,
+      ?   _count?: true
+        }
+      })
+
+Unknown field `product` for select statement on model `Lead`. Available options are marked with ?.
+    at <unknown> (src/app/actions.ts:445:17)
+    at Function.all (<anonymous>:1:21)
+    at getDashboardStats (src/app/actions.ts:437:7)
+    at AnalyticsPage (src/app/(dashboard)/analytics/page.tsx:5:17)
+  443 |       where: { tenantId, closedAt: { gte: startOfMonth } },
+  444 |     }),
+> 445 |     prisma.lead.findMany({
+      |                 ^
+  446 |       where: { tenantId, deletedAt: null },
+  447 |       select: { source: true, status: true, product: { select: { price: true } } },
+  448 |     }),
+ GET /icons/icon-192.png 404 in 68ms (next.js: 15ms, proxy.ts: 15ms, application-code: 38ms)
+file:///Users/test/Test_youtube/educrm/node_modules/@prisma/client/runtime/library.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: TypeError [ERR_INVALID_ARG_TYPE]: The "payload" argument must be of type object. Received null
+⨯ Error [PrismaClientValidationError]: 
+Invalid `{imported module ./src/lib/db.ts}["prisma"].lead.findMany()` invocation in
+/Users/test/Test_youtube/educrm/.next/dev/server/chunks/ssr/_069p323._.js:283:153
+
+  280     "Pre-inscripción",
+  281     "Inscrito"
+  282 ];
+→ 283 const leads = await {imported module ./src/lib/db.ts}["prisma"].lead.findMany({
+        where: {
+          tenantId: "cmn51pjcl0000sfjtchnhjzks",
+          deletedAt: null
+        },
+        include: {
+          product: true,
+          ~~~~~~~
+      ?   tenant?: true,
+      ?   messages?: true,
+      ?   appointments?: true,
+      ?   enrollment?: true
+        },
+        orderBy: [
+          {
+            nextActionAt: "asc"
+          },
+          {
+            createdAt: "desc"
+          }
+        ]
+      })
+
+Unknown field `product` for include statement on model `Lead`. Available options are marked with ?.
+    at <unknown> (src/app/actions.ts:193:35)
+    at async getPipelineData (src/app/actions.ts:193:17)
+    at async PipelinePage (src/app/(dashboard)/pipeline/page.tsx:5:19)
+  191 |   ];
+  192 |
+> 193 |   const leads = await prisma.lead.findMany({
+      |                                   ^
+  194 |     where: { tenantId, deletedAt: null },
+  195 |     include: { product: true },
+  196 |     orderBy: [{ nextActionAt: "asc" }, { createdAt: "desc" }], {
+  clientVersion: '5.22.0',
+  digest: '3787869878'
+}
+ GET /pipeline 500 in 115ms (next.js: 26ms, proxy.ts: 6ms, application-code: 83ms)
+[browser] Uncaught PrismaClientValidationError: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].lead.findMany()` invocation in
+/Users/test/Test_youtube/educrm/.next/dev/server/chunks/ssr/_069p323._.js:283:153
+
+  280     "Pre-inscripción",
+  281     "Inscrito"
+  282 ];
+→ 283 const leads = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].lead.findMany({
+        where: {
+          tenantId: "cmn51pjcl0000sfjtchnhjzks",
+          deletedAt: null
+        },
+        include: {
+          product: true,
+          ~~~~~~~
+      ?   tenant?: true,
+      ?   messages?: true,
+      ?   appointments?: true,
+      ?   enrollment?: true
+        },
+        orderBy: [
+          {
+            nextActionAt: "asc"
+          },
+          {
+            createdAt: "desc"
+          }
+        ]
+      })
+
+Unknown field `product` for include statement on model `Lead`. Available options are marked with ?.
+    at <unknown> (src/app/actions.ts:193:35)
+    at  getPipelineData (src/app/actions.ts:193:17)
+    at  PipelinePage (src/app/(dashboard)/pipeline/page.tsx:5:19)
+  191 |   ];
+  192 |
+> 193 |   const leads = await prisma.lead.findMany({
+      |                                   ^
+  194 |     where: { tenantId, deletedAt: null },
+  195 |     include: { product: true },
+  196 |     orderBy: [{ nextActionAt: "asc" }, { createdAt: "desc" }],
+ GET /icons/icon-192.png 404 in 160ms (next.js: 58ms, proxy.ts: 11ms, application-code: 91ms)
+file:///Users/test/Test_youtube/educrm/node_modules/@prisma/client/runtime/library.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: TypeError [ERR_INVALID_ARG_TYPE]: The "payload" argument must be of type object. Received null
+⨯ Error [PrismaClientValidationError]: 
+Invalid `{imported module ./src/lib/db.ts}["prisma"].lead.findMany()` invocation in
+/Users/test/Test_youtube/educrm/.next/dev/server/chunks/ssr/_069p323._.js:283:153
+
+  280     "Pre-inscripción",
+  281     "Inscrito"
+  282 ];
+→ 283 const leads = await {imported module ./src/lib/db.ts}["prisma"].lead.findMany({
+        where: {
+          tenantId: "cmn51pjcl0000sfjtchnhjzks",
+          deletedAt: null
+        },
+        include: {
+          product: true,
+          ~~~~~~~
+      ?   tenant?: true,
+      ?   messages?: true,
+      ?   appointments?: true,
+      ?   enrollment?: true
+        },
+        orderBy: [
+          {
+            nextActionAt: "asc"
+          },
+          {
+            createdAt: "desc"
+          }
+        ]
+      })
+
+Unknown field `product` for include statement on model `Lead`. Available options are marked with ?.
+    at <unknown> (src/app/actions.ts:193:35)
+    at async getPipelineData (src/app/actions.ts:193:17)
+    at async PipelinePage (src/app/(dashboard)/pipeline/page.tsx:5:19)
+  191 |   ];
+  192 |
+> 193 |   const leads = await prisma.lead.findMany({
+      |                                   ^
+  194 |     where: { tenantId, deletedAt: null },
+  195 |     include: { product: true },
+  196 |     orderBy: [{ nextActionAt: "asc" }, { createdAt: "desc" }], {
+  clientVersion: '5.22.0',
+  digest: '3787869878'
+}
+ GET / 307 in 965ms (next.js: 511ms, proxy.ts: 107ms, application-code: 347ms)
+ GET /pipeline 500 in 173ms (next.js: 9ms, proxy.ts: 10ms, application-code: 154ms)
+[browser] Uncaught PrismaClientValidationError: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].lead.findMany()` invocation in
+/Users/test/Test_youtube/educrm/.next/dev/server/chunks/ssr/_069p323._.js:283:153
+
+  280     "Pre-inscripción",
+  281     "Inscrito"
+  282 ];
+→ 283 const leads = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].lead.findMany({
+        where: {
+          tenantId: "cmn51pjcl0000sfjtchnhjzks",
+          deletedAt: null
+        },
+        include: {
+          product: true,
+          ~~~~~~~
+      ?   tenant?: true,
+      ?   messages?: true,
+      ?   appointments?: true,
+      ?   enrollment?: true
+        },
+        orderBy: [
+          {
+            nextActionAt: "asc"
+          },
+          {
+            createdAt: "desc"
+          }
+        ]
+      })
+
+Unknown field `product` for include statement on model `Lead`. Available options are marked with ?.
+    at <unknown> (src/app/actions.ts:193:35)
+    at  getPipelineData (src/app/actions.ts:193:17)
+    at  PipelinePage (src/app/(dashboard)/pipeline/page.tsx:5:19)
+  191 |   ];
+  192 |
+> 193 |   const leads = await prisma.lead.findMany({
+      |                                   ^
+  194 |     where: { tenantId, deletedAt: null },
+  195 |     include: { product: true },
+  196 |     orderBy: [{ nextActionAt: "asc" }, { createdAt: "desc" }],
+ GET /icons/icon-192.png 404 in 106ms (next.js: 6ms, proxy.ts: 2ms, application-code: 98ms)
+[?25h

@@ -1,0 +1,183 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Tenant {
+  id             String   @id @default(cuid())
+  name           String
+  slug           String   @unique
+  logoUrl        String?  @map("logo_url")
+  primaryColor   String   @default("#0F2B4C") @map("primary_color")
+  secondaryColor String   @default("#2563EB") @map("secondary_color")
+  pipelineStages String   @default("[\"Nuevo\",\"Contactado\",\"Interesado\",\"Visita Programada\",\"Entrevista\",\"Pre-inscripción\",\"Inscrito\"]") @map("pipeline_stages")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  users             User[]
+  leads             Lead[]
+  leadMessages      LeadMessage[]
+  appointments      Appointment[]
+  enrollments       Enrollment[]
+  messageTemplates  MessageTemplate[]
+  products          Product[]
+
+  @@map("tenants")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  tenantId     String   @map("tenant_id")
+  email        String
+  passwordHash String   @map("password_hash")
+  name         String
+  role         String   @default("admin")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, email])
+  @@index([tenantId])
+  @@map("users")
+}
+
+model Lead {
+  id                String    @id @default(cuid())
+  tenantId          String    @map("tenant_id")
+  studentName       String    @map("student_name")
+  guardianName      String    @map("guardian_name")
+  phone             String?
+  whatsapp          String?
+  email             String?
+  studentAge        Int?      @map("student_age")
+  gradeInterest     String?   @map("grade_interest")
+  productId         String?   @map("product_id")
+  campus            String?
+  source            String    @default("manual")
+  interestReason    String?   @map("interest_reason")
+  notes             String?
+  status            String    @default("Nuevo")
+  nextAction        String?   @map("next_action")
+  nextActionAt      DateTime? @map("next_action_at")
+  lastInteractionAt DateTime? @map("last_interaction_at")
+  lostReason        String?   @map("lost_reason")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  deletedAt         DateTime? @map("deleted_at")
+
+  tenant       Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  product      Product?      @relation(fields: [productId], references: [id], onDelete: SetNull)
+  messages     LeadMessage[]
+  appointments Appointment[]
+  enrollment   Enrollment?
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, source])
+  @@index([tenantId, gradeInterest])
+  @@index([tenantId, nextActionAt])
+  @@index([tenantId, whatsapp])
+  @@index([tenantId, guardianName])
+  @@index([tenantId, studentName])
+  @@index([productId])
+  @@map("leads")
+}
+
+model LeadMessage {
+  id           String    @id @default(cuid())
+  tenantId     String    @map("tenant_id")
+  leadId       String    @map("lead_id")
+  channel      String    @default("whatsapp")
+  direction    String    // "inbound" | "outbound"
+  content      String
+  templateName String?   @map("template_name")
+  sentAt       DateTime  @default(now()) @map("sent_at")
+  deliveredAt  DateTime? @map("delivered_at")
+  readAt       DateTime? @map("read_at")
+  status       String    @default("sent")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  lead   Lead   @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([leadId])
+  @@index([tenantId, leadId])
+  @@map("lead_messages")
+}
+
+model Appointment {
+  id          String   @id @default(cuid())
+  tenantId    String   @map("tenant_id")
+  leadId      String   @map("lead_id")
+  type        String   // "visit" | "interview" | "tour"
+  scheduledAt DateTime @map("scheduled_at")
+  notes       String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  lead   Lead   @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([leadId])
+  @@index([tenantId, scheduledAt])
+  @@map("appointments")
+}
+
+model Enrollment {
+  id           String   @id @default(cuid())
+  tenantId     String   @map("tenant_id")
+  leadId       String   @unique @map("lead_id")
+  studentName  String   @map("student_name")
+  guardianName String   @map("guardian_name")
+  gradeFinal   String   @map("grade_final")
+  campus       String?
+  closedAt     DateTime @default(now()) @map("closed_at")
+  notes        String?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  lead   Lead   @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, closedAt])
+  @@map("enrollments")
+}
+
+model MessageTemplate {
+  id                        String   @id @default(cuid())
+  tenantId                  String   @map("tenant_id")
+  name                      String
+  content                   String
+  approvedWhatsappTemplateId String? @map("approved_whatsapp_template_id")
+  createdAt                 DateTime @default(now()) @map("created_at")
+  updatedAt                 DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("message_templates")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  tenantId    String   @map("tenant_id")
+  name        String   // Ej. "EGB 1"
+  level       String   // "Inicial", "EGB", "BGU"
+  price       Float    // Precio en dólares
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  leads  Lead[]
+
+  @@index([tenantId])
+  @@map("products")
+}
