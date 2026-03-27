@@ -71,8 +71,10 @@ export async function GET() {
         await prisma.lead.create({
           data: {
             tenantId: tenant.id,
-            name: lead.name,
+            studentName: `Hijo de ${lead.name}`,
+            guardianName: lead.name,
             phone: lead.phone,
+            whatsapp: lead.phone,
             pipelineStage: lead.stage,
             source: lead.source,
             assignedToId: user.id,
