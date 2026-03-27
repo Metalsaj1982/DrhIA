@@ -11,11 +11,16 @@ import type { LeadFormData, LeadFilters } from "@/types";
 // ========================================
 
 export async function loginAction(email: string, password: string) {
-  const session = await authenticate(email, password);
-  if (!session) {
-    return { error: "Correo o contraseña incorrectos" };
+  try {
+    const session = await authenticate(email, password);
+    if (!session) {
+      return { error: "Correo o contraseña incorrectos" };
+    }
+    return { success: true, session };
+  } catch (error: any) {
+    console.error("LOGIN DATABASE ERROR:", error);
+    return { error: `DB Error: ${error.message || "Falla de conexión"}` };
   }
-  return { success: true, session };
 }
 
 export async function logoutAction() {
