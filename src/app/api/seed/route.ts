@@ -77,7 +77,6 @@ export async function GET() {
             whatsapp: lead.phone,
             status: lead.stage,
             source: lead.source,
-            assignedToId: user.id,
             gradeInterest: lead.interest,
           }
         });
