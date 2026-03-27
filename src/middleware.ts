@@ -11,6 +11,7 @@ const PUBLIC_PATHS = [
   "/api/auth/login", 
   "/api/webhooks/whatsapp", // Webhooks de Meta y externos (sin estado)
   "/api/seed",              // Inicialización de la base de datos
+  "/api/test-db",
   "/manifest.json", 
   "/sw.js"
 ];
