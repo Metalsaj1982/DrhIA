@@ -75,10 +75,10 @@ export async function GET() {
             guardianName: lead.name,
             phone: lead.phone,
             whatsapp: lead.phone,
-            pipelineStage: lead.stage,
+            status: lead.stage,
             source: lead.source,
             assignedToId: user.id,
-            customData: JSON.stringify({ interest: lead.interest }),
+            gradeInterest: lead.interest,
           }
         });
       }
