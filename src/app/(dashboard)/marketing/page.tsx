@@ -1,10 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { getTenantSettings } from "@/app/actions";
+import type { TenantSettings } from "@/types";
 
 export default function MarketingPage() {
   const [activeTab, setActiveTab] = useState("social");
+  const [settings, setSettings] = useState<TenantSettings | null>(null);
+
+  useEffect(() => {
+    getTenantSettings().then((res) => {
+      if (res) setSettings(res as unknown as TenantSettings);
+    });
+  }, []);
 
   const tabs = [
     { id: "social", label: "Planificador Social", icon: "📱" },
@@ -55,9 +64,8 @@ export default function MarketingPage() {
             <h3 className="font-bold mb-4">Cuentas Conectadas</h3>
             <div className="space-y-4">
               {[
-                { name: 'Facebook Page', icon: 'f', color: '#1877F2', status: 'Conectado' },
-                { name: 'Instagram Business', icon: '📸', color: '#E4405F', status: 'Conectado' },
-                { name: 'Google Business', icon: 'G', color: '#EA4335', status: 'Pendiente' },
+                { name: 'Meta (Facebook / Instagram)', icon: 'f', color: '#1877F2', status: settings?.integrations?.some(i => i.provider === 'meta') ? 'Conectado' : 'Pendiente' },
+                { name: 'Google Business', icon: 'G', color: '#EA4335', status: settings?.integrations?.some(i => i.provider === 'google') ? 'Conectado' : 'Pendiente' },
               ].map((acc) => (
                 <div key={acc.name} className="flex items-center justify-between p-3 rounded-xl bg-gray-50">
                   <div className="flex items-center gap-3">

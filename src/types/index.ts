@@ -134,6 +134,7 @@ export interface TenantSettings {
   primaryColor: string;
   secondaryColor: string;
   pipelineStages: string[];
+  integrations?: { provider: string; connectedAt: string }[];
 }
 
 export interface DashboardStats {

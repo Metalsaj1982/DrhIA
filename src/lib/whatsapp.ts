@@ -1,9 +1,5 @@
-// WhatsApp Cloud API client — designed for official Meta Business API integration
-// Requires WHATSAPP_API_TOKEN and WHATSAPP_PHONE_NUMBER_ID env vars
-
-const API_URL = process.env.WHATSAPP_API_URL || "https://graph.facebook.com/v18.0";
-const API_TOKEN = process.env.WHATSAPP_API_TOKEN || "";
-const PHONE_NUMBER_ID = process.env.WHATSAPP_PHONE_NUMBER_ID || "";
+// WhatsApp integration - supports both Official API and WhatsApp Web
+import { sendWhatsAppMessage } from "./whatsapp-web";
 
 interface WhatsAppTextMessage {
   to: string;
@@ -26,14 +22,27 @@ interface WhatsAppResponse {
   error?: string;
 }
 
+// Official WhatsApp Business API credentials
+const API_URL = process.env.WHATSAPP_API_URL || "https://graph.facebook.com/v18.0";
+const API_TOKEN = process.env.WHATSAPP_API_TOKEN || "";
+const PHONE_NUMBER_ID = process.env.WHATSAPP_PHONE_NUMBER_ID || "";
+
+// Check which mode to use: API or Web
+const useOfficialAPI = API_TOKEN && PHONE_NUMBER_ID;
+
 export async function sendTextMessage(
   msg: WhatsAppTextMessage
 ): Promise<WhatsAppResponse> {
-  if (!API_TOKEN || !PHONE_NUMBER_ID) {
-    console.warn("[WhatsApp] API credentials not configured — message simulated");
-    return { success: true, messageId: `sim_${Date.now()}` };
+  // Try official API first if configured
+  if (useOfficialAPI) {
+    return sendViaOfficialAPI(msg);
   }
 
+  // Fallback to WhatsApp Web
+  return sendWhatsAppMessage(msg.to, msg.text);
+}
+
+async function sendViaOfficialAPI(msg: WhatsAppTextMessage): Promise<WhatsAppResponse> {
   try {
     const response = await fetch(
       `${API_URL}/${PHONE_NUMBER_ID}/messages`,
@@ -58,16 +67,20 @@ export async function sendTextMessage(
     }
     return { success: false, error: JSON.stringify(data.error || data) };
   } catch (error) {
-    return { success: false, error: String(error) };
+    console.error("[WhatsApp API] Error:", error);
+    // Fallback to WhatsApp Web on API error
+    return sendWhatsAppMessage(msg.to, msg.text);
   }
 }
 
 export async function sendTemplateMessage(
   msg: WhatsAppTemplateMessage
 ): Promise<WhatsAppResponse> {
-  if (!API_TOKEN || !PHONE_NUMBER_ID) {
-    console.warn("[WhatsApp] API credentials not configured — template simulated");
-    return { success: true, messageId: `sim_tpl_${Date.now()}` };
+  if (!useOfficialAPI) {
+    return {
+      success: false,
+      error: "Las plantillas solo funcionan con la API oficial de WhatsApp Business. Configura WHATSAPP_API_TOKEN y WHATSAPP_PHONE_NUMBER_ID, o envía mensajes de texto directos usando WhatsApp Web.",
+    };
   }
 
   try {
@@ -112,8 +125,18 @@ export async function sendBulkPersonalized(
     const result = await sendTextMessage(msg);
     results.push(result);
     // Small delay between messages to avoid rate limiting
-    await new Promise((resolve) => setTimeout(resolve, 200));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 
   return results;
+}
+
+// Get current WhatsApp mode
+export function getWhatsAppMode(): "api" | "web" | "none" {
+  if (useOfficialAPI) return "api";
+  // Check if WhatsApp Web is connected
+  const { getWhatsAppState } = require("./whatsapp-web");
+  const state = getWhatsAppState();
+  if (state.isReady) return "web";
+  return "none";
 }

@@ -26,6 +26,7 @@ model Tenant {
   enrollments       Enrollment[]
   messageTemplates  MessageTemplate[]
   products          Product[]
+  integrations      Integration[]
 
   @@map("tenants")
 }
@@ -181,4 +182,22 @@ model Product {
 
   @@index([tenantId])
   @@map("products")
+}
+
+model Integration {
+  id              String    @id @default(cuid())
+  tenantId        String    @map("tenant_id")
+  provider        String    // "google" | "meta"
+  providerId      String?   @map("provider_id")
+  accessToken     String    @map("access_token") @db.Text
+  refreshToken    String?   @map("refresh_token") @db.Text
+  tokenExpiresAt  DateTime? @map("token_expires_at")
+  connectedAt     DateTime  @default(now()) @map("connected_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, provider])
+  @@index([tenantId])
+  @@map("integrations")
 }

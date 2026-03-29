@@ -4,6 +4,7 @@ import { useState } from "react";
 import { updateTenantSettings } from "@/app/actions";
 import { useRouter } from "next/navigation";
 import type { TenantSettings } from "@/types";
+import WhatsAppWebConnector from "@/components/whatsapp/WhatsAppWebConnector";
 
 interface SettingsClientProps {
   settings: TenantSettings;
@@ -170,88 +171,42 @@ export function SettingsClient({ settings }: SettingsClientProps) {
         )}
 
         {activeTab === "whatsapp" && (
-          <div className="space-y-5">
-            {/* Status card */}
+          <div className="space-y-6">
+            {/* WhatsApp Web Section */}
+            <WhatsAppWebConnector />
+
+            {/* Divider */}
+            <div className="relative py-4">
+              <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                <div className="w-full border-t" style={{ borderColor: 'var(--color-border-light)' }}></div>
+              </div>
+              <div className="relative flex justify-center">
+                <span className="px-2 bg-white text-sm text-gray-500">O usa la API oficial</span>
+              </div>
+            </div>
+
+            {/* Official API Section */}
             <div className="p-4 rounded-xl border-2 flex items-start gap-3" style={{ borderColor: '#25D366', background: '#F0FDF4' }}>
               <span className="text-2xl">📱</span>
               <div>
-                <p className="text-sm font-bold" style={{ color: '#15803D' }}>WhatsApp Business API</p>
-                <p className="text-xs mt-0.5" style={{ color: '#166534' }}>Meta Cloud API — Gratis hasta 1,000 conversaciones/mes</p>
+                <p className="text-sm font-bold" style={{ color: '#15803D' }}>WhatsApp Business API (Opcional)</p>
+                <p className="text-xs mt-0.5" style={{ color: '#166534' }}>Meta Cloud API — Solo si necesitas funciones avanzadas</p>
               </div>
             </div>
 
-            {/* Step 1: Webhook */}
+            {/* API Configuration */}
             <div className="card p-5">
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold flex items-center justify-center">1</span>
-                <h3 className="text-sm font-semibold" style={{ color: 'var(--color-accent-600)' }}>URL del Webhook (copia esto en Meta)</h3>
+                <h3 className="text-sm font-semibold" style={{ color: 'var(--color-accent-600)' }}>Configuración de API (opcional)</h3>
               </div>
               <p className="text-xs mb-3" style={{ color: 'var(--color-text-tertiary)' }}>
-                En <strong>developers.facebook.com</strong> → Tu App → WhatsApp → Configuración → Webhook
+                Si prefieres usar la API oficial en lugar de WhatsApp Web:
               </p>
-              <div className="space-y-3">
-                <div>
-                  <label className="block text-[10px] font-semibold mb-1 uppercase" style={{ color: 'var(--color-text-tertiary)' }}>URL del Webhook</label>
-                  <div className="flex items-center gap-2">
-                    <code className="text-[10px] break-all p-2 rounded-lg border flex-1 font-mono" style={{ background: 'var(--color-surface-secondary)', borderColor: 'var(--color-border-light)' }}>
-                      {typeof window !== 'undefined' ? `${window.location.origin}/api/webhooks/whatsapp` : 'https://tu-dominio.com/api/webhooks/whatsapp'}
-                    </code>
-                    <button
-                      onClick={() => navigator.clipboard.writeText(`${window.location.origin}/api/webhooks/whatsapp`)}
-                      className="btn btn-secondary px-2 py-1 text-[10px] shrink-0"
-                    >Copiar</button>
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-[10px] font-semibold mb-1 uppercase" style={{ color: 'var(--color-text-tertiary)' }}>Token de Verificación</label>
-                  <div className="flex items-center gap-2">
-                    <code className="text-[10px] p-2 rounded-lg border flex-1 font-mono" style={{ background: 'var(--color-surface-secondary)', borderColor: 'var(--color-border-light)' }}>
-                      educrm-webhook-secret-2025
-                    </code>
-                    <button
-                      onClick={() => navigator.clipboard.writeText('educrm-webhook-secret-2025')}
-                      className="btn btn-secondary px-2 py-1 text-[10px] shrink-0"
-                    >Copiar</button>
-                  </div>
-                  <p className="text-[10px] mt-1" style={{ color: 'var(--color-text-tertiary)' }}>Este valor debe coincidir con WHATSAPP_WEBHOOK_VERIFY_TOKEN en .env</p>
-                </div>
+              <div className="p-3 rounded-xl font-mono text-[11px] space-y-2" style={{ background: '#1E1E2E', color: '#CDD6F4' }}>
+                <p><span style={{ color: '#A6E3A1' }}>WHATSAPP_API_TOKEN</span>=<span style={{ color: '#F9E2AF' }}>&quot;tu-token-de-meta&quot;</span></p>
+                <p><span style={{ color: '#A6E3A1' }}>WHATSAPP_PHONE_NUMBER_ID</span>=<span style={{ color: '#F9E2AF' }}>&quot;tu-phone-number-id&quot;</span></p>
               </div>
-            </div>
-
-            {/* Step 2: Credentials */}
-            <div className="card p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold flex items-center justify-center">2</span>
-                <h3 className="text-sm font-semibold" style={{ color: 'var(--color-accent-600)' }}>Credenciales de API (en tu archivo .env)</h3>
-              </div>
-              <div className="space-y-3">
-                <div className="p-3 rounded-xl font-mono text-[11px] space-y-2" style={{ background: '#1E1E2E', color: '#CDD6F4' }}>
-                  <p><span style={{ color: '#A6E3A1' }}>WHATSAPP_API_TOKEN</span>=<span style={{ color: '#F9E2AF' }}>&quot;tu-token-de-acceso-aquí&quot;</span></p>
-                  <p><span style={{ color: '#A6E3A1' }}>WHATSAPP_PHONE_NUMBER_ID</span>=<span style={{ color: '#F9E2AF' }}>&quot;tu-phone-number-id&quot;</span></p>
-                  <p><span style={{ color: '#A6E3A1' }}>GEMINI_API_KEY</span>=<span style={{ color: '#F9E2AF' }}>&quot;tu-clave-de-gemini&quot;</span></p>
-                </div>
-                <p className="text-[10px]" style={{ color: 'var(--color-text-tertiary)' }}>
-                  Obtén el token en: <strong>Meta for Developers → Tu App → WhatsApp → API Setup</strong><br/>
-                  Obtén Gemini Key en: <strong>aistudio.google.com/app/apikey</strong> (gratis)
-                </p>
-              </div>
-            </div>
-
-            {/* Step 3: ngrok for local */}
-            <div className="card p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold flex items-center justify-center">3</span>
-                <h3 className="text-sm font-semibold" style={{ color: 'var(--color-accent-600)' }}>Para pruebas locales — Usar ngrok</h3>
-              </div>
-              <div className="p-3 rounded-xl font-mono text-[11px] space-y-1" style={{ background: '#1E1E2E', color: '#CDD6F4' }}>
-                <p><span style={{ color: '#89B4FA' }}># 1. Instalar ngrok</span></p>
-                <p style={{ color: '#CDD6F4' }}>brew install ngrok</p>
-                <p className="mt-2"><span style={{ color: '#89B4FA' }}># 2. Exponer tu servidor local</span></p>
-                <p style={{ color: '#CDD6F4' }}>ngrok http 3000</p>
-                <p className="mt-2"><span style={{ color: '#89B4FA' }}># 3. Copiar la URL que ngrok genera</span></p>
-                <p style={{ color: '#F9E2AF' }}>https://xxxx.ngrok.io/api/webhooks/whatsapp</p>
-              </div>
-              <p className="text-[10px] mt-2" style={{ color: 'var(--color-text-tertiary)' }}>Pega esa URL como Webhook en Meta. Recuerda actualizar la URL cada vez que reinicias ngrok.</p>
             </div>
           </div>
         )}
@@ -261,12 +216,35 @@ export function SettingsClient({ settings }: SettingsClientProps) {
             <div className="card p-5">
               <h3 className="text-sm font-semibold mb-2">Google Business Profile</h3>
               <p className="text-xs text-gray-500 mb-4">Conecta tu perfil de Google para recibir mensajes y reseñas.</p>
-              <button className="btn btn-secondary text-xs">CONECTAR GOOGLE</button>
+              {settings.integrations?.some((i) => i.provider === "google") ? (
+                <div className="flex items-center gap-3">
+                  <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg truncate">Conectado</span>
+                </div>
+              ) : (
+                <button 
+                  onClick={() => window.location.href = `/api/auth/google?tenantId=${settings.id}`}
+                  className="btn border border-[#EA4335] text-[#EA4335] hover:bg-[#EA4335] hover:text-white text-xs transition-colors"
+                >
+                  CONECTAR GOOGLE
+                </button>
+              )}
             </div>
             
             <div className="card p-5">
               <h3 className="text-sm font-semibold mb-2">Meta (Facebook & Instagram)</h3>
-              <p className="text-xs text-gray-500 mb-4">Configura tus webhooks para Lead Ads.</p>
+              <p className="text-xs text-gray-500 mb-4">Conecta tu cuenta para recibir leads de FB/IG Ads automáticamente.</p>
+              {settings.integrations?.some((i) => i.provider === "meta") ? (
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg truncate">Conectado</span>
+                </div>
+              ) : (
+                <button 
+                  onClick={() => window.location.href = `/api/auth/meta?tenantId=${settings.id}`}
+                  className="btn bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs mb-4"
+                >
+                  CONECTAR META
+                </button>
+              )}
               <div className="p-4 rounded-xl border" style={{ borderColor: 'var(--color-border-light)', background: 'var(--color-surface-secondary)' }}>
                 <label className="block text-xs font-semibold mb-2">URL del Webhook</label>
                 <div className="flex items-center gap-2">

@@ -601,6 +601,7 @@ export async function getTenantSettings() {
   const session = await requireAuth();
   const tenant = await prisma.tenant.findUnique({
     where: { id: session.tenantId },
+    include: { integrations: { select: { provider: true, connectedAt: true } } },
   });
   if (!tenant) return null;
   return {
@@ -611,6 +612,7 @@ export async function getTenantSettings() {
     primaryColor: tenant.primaryColor,
     secondaryColor: tenant.secondaryColor,
     pipelineStages: JSON.parse(tenant.pipelineStages as string),
+    integrations: tenant.integrations.map(i => ({ provider: i.provider, connectedAt: i.connectedAt.toISOString() })),
   };
 }
 

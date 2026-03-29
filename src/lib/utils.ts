@@ -104,3 +104,17 @@ export function personalizeTemplate(
   }
   return result;
 }
+
+// Get the app URL for production (Vercel) or development
+export function getAppUrl(): string {
+  // Vercel production URL
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  // Vercel project URL (custom domain)
+  if (process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  // Fallback to env variable or localhost
+  return process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+}
