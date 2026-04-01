@@ -233,24 +233,47 @@ export function SettingsClient({ settings }: SettingsClientProps) {
             <div className="card p-5">
               <h3 className="text-sm font-semibold mb-2">Meta (Facebook & Instagram)</h3>
               <p className="text-xs text-gray-500 mb-4">Conecta tu cuenta para recibir leads de FB/IG Ads automáticamente.</p>
-              {settings.integrations?.some((i) => i.provider === "meta") ? (
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg truncate">Conectado</span>
+              <div className="flex flex-col gap-4">
+                {settings.integrations?.some((i) => i.provider === "meta") ? (
+                  <div className="flex items-center gap-3">
+                    <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg truncate">Conectado</span>
+                  </div>
+                ) : (
+                  <button 
+                    onClick={() => window.location.href = `/api/auth/meta?tenantId=${settings.id}`}
+                    className="btn bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs self-start"
+                  >
+                    CONECTAR META (FACEBOOK/INSTAGRAM)
+                  </button>
+                )}
+                <div className="p-4 rounded-xl border" style={{ borderColor: 'var(--color-border-light)', background: 'var(--color-surface-secondary)' }}>
+                  <label className="block text-xs font-semibold mb-2">URL del Webhook de Meta</label>
+                  <div className="flex items-center gap-2">
+                    <code className="text-[10px] break-all p-2 bg-white rounded border flex-1">
+                      {typeof window !== 'undefined' ? `${window.location.origin}/api/webhooks/meta?tenantId=${settings.id}` : ''}
+                    </code>
+                  </div>
+                  <p className="text-[10px] mt-2 text-gray-400">Pega esta URL en tu APP de Meta Developers.</p>
                 </div>
-              ) : (
-                <button 
-                  onClick={() => window.location.href = `/api/auth/meta?tenantId=${settings.id}`}
-                  className="btn bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs mb-4"
-                >
-                  CONECTAR META
-                </button>
-              )}
-              <div className="p-4 rounded-xl border" style={{ borderColor: 'var(--color-border-light)', background: 'var(--color-surface-secondary)' }}>
-                <label className="block text-xs font-semibold mb-2">URL del Webhook</label>
-                <div className="flex items-center gap-2">
-                  <code className="text-[10px] break-all p-2 bg-white rounded border flex-1">
-                    {typeof window !== 'undefined' ? `${window.location.origin}/api/webhooks/meta?tenantId=${settings.id}` : ''}
-                  </code>
+              </div>
+            </div>
+
+            <div className="card p-5">
+              <h3 className="text-sm font-semibold mb-2">TikTok Lead Generation</h3>
+              <p className="text-xs text-gray-500 mb-4">Recibe leads de TikTok Ads automáticamente vía Webhook.</p>
+              <div className="flex flex-col gap-4">
+                <div className="p-4 rounded-xl border" style={{ borderColor: 'var(--color-border-light)', background: '#FEF2F2' }}>
+                  <label className="block text-xs font-semibold mb-2" style={{ color: '#E11D48' }}>URL del Webhook de TikTok</label>
+                  <div className="flex items-center gap-2">
+                    <code className="text-[10px] break-all p-2 bg-white rounded border flex-1">
+                      {typeof window !== 'undefined' ? `${window.location.origin}/api/webhooks/tiktok?tenantId=${settings.id}` : ''}
+                    </code>
+                  </div>
+                  <p className="text-[10px] mt-2 text-gray-500">Configura esta URL en tu TikTok Ads Manager (Events Manager).</p>
+                </div>
+                <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg border border-dashed text-gray-500">
+                  <span className="text-lg">🤖</span>
+                  <p className="text-[10px]">TikTok Ads requiere validación manual de Webhook desde su panel.</p>
                 </div>
               </div>
             </div>
