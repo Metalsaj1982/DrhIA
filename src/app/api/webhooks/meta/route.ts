@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { processIncomingLead } from "@/lib/integrations";
 
 // GET for verifying the webhook subscription
 export async function GET(request: Request) {
@@ -40,7 +41,6 @@ export async function POST(request: Request) {
             const pageId = change.value.page_id;
             const adGroupId = change.value.adgroup_id;
             const formId = change.value.form_id;
-            const createdTime = change.value.created_time;
 
             console.log("[Meta Webhook] New lead received:", { leadgenId, pageId, formId, tenantId });
 
@@ -56,16 +56,12 @@ export async function POST(request: Request) {
 
             if (!integration?.accessToken) {
               console.warn("[Meta Webhook] No Meta integration found for tenant:", tenantId);
-              // Crear lead básico si no hay integración configurada
-              await prisma.lead.create({
-                data: {
-                  tenantId,
-                  studentName: `Lead Meta #${leadgenId.slice(-4)}`,
-                  guardianName: "Contacto de FB Ads (configurar integración)",
-                  source: "facebook_ads",
-                  notes: `Leadgen ID: ${leadgenId} | Page: ${pageId} | Form: ${formId}\n⚠️ Configura la integración de Meta para obtener datos completos`,
-                  status: "Nuevo",
-                },
+              await processIncomingLead({
+                tenantId,
+                guardianName: "Contacto de FB Ads",
+                phone: "0000000000", // Placeholder if no data
+                source: "Facebook",
+                notes: `Leadgen ID: ${leadgenId} | Page: ${pageId} | Form: ${formId}\n⚠️ Configura la integración de Meta para obtener datos completos`,
               });
               continue;
             }
@@ -77,35 +73,28 @@ export async function POST(request: Request) {
               if (leadData) {
                 const parsedData = parseMetaLeadFields(leadData.field_data);
 
-                await prisma.lead.create({
-                  data: {
-                    tenantId,
-                    studentName: parsedData.studentName || `Lead Meta #${leadgenId.slice(-4)}`,
-                    guardianName: parsedData.guardianName || "Contacto de Facebook",
-                    phone: parsedData.phone,
-                    whatsapp: parsedData.whatsapp,
-                    email: parsedData.email,
-                    gradeInterest: parsedData.gradeInterest,
-                    source: "facebook_ads",
-                    notes: `Leadgen ID: ${leadgenId}\nPage ID: ${pageId}\nForm ID: ${formId}\nAd Group: ${adGroupId || "N/A"}\n\nDatos completos recibidos desde Meta Ads`,
-                    status: "Nuevo",
-                  },
+                await processIncomingLead({
+                  tenantId,
+                  studentName: parsedData.studentName,
+                  guardianName: parsedData.guardianName || "Contacto de Facebook",
+                  phone: parsedData.phone || "0000000000",
+                  whatsapp: parsedData.whatsapp,
+                  email: parsedData.email,
+                  source: "Facebook",
+                  gradeInterest: parsedData.gradeInterest,
+                  notes: `Leadgen ID: ${leadgenId}\nPage ID: ${pageId}\nForm ID: ${formId}\nAd Group: ${adGroupId || "N/A"}\nDatos completos recibidos desde Meta Ads`,
                 });
 
-                console.log("[Meta Webhook] Lead created with full data:", parsedData);
+                console.log("[Meta Webhook] Lead processed with central handler:", parsedData);
               }
             } catch (error) {
               console.error("[Meta Webhook] Error fetching lead data:", error);
-              // Crear lead básico como fallback
-              await prisma.lead.create({
-                data: {
-                  tenantId,
-                  studentName: `Lead Meta #${leadgenId.slice(-4)}`,
-                  guardianName: "Contacto de FB Ads (error al obtener datos)",
-                  source: "facebook_ads",
-                  notes: `Leadgen ID: ${leadgenId} | Error: ${error}`,
-                  status: "Nuevo",
-                },
+              await processIncomingLead({
+                tenantId,
+                guardianName: "Contacto de FB Ads (Error)",
+                phone: "0000000000",
+                source: "Facebook",
+                notes: `Leadgen ID: ${leadgenId} | Error al obtener datos: ${error}`,
               });
             }
           }

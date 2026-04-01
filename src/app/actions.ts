@@ -127,6 +127,38 @@ export async function createLead(data: LeadFormData) {
   return lead;
 }
 
+export async function importLeadsAction(leadsData: any[]) {
+  const tenantId = await getTenantId();
+  
+  try {
+    const results = await prisma.$transaction(
+      leadsData.map((lead) => 
+        prisma.lead.create({
+          data: {
+            tenantId,
+            studentName: lead.studentName || "Sin Nombre",
+            guardianName: lead.guardianName || lead.studentName || "Sin Representante",
+            phone: String(lead.phone || "").replace(/\D/g, ""),
+            whatsapp: String(lead.whatsapp || lead.phone || "").replace(/\D/g, ""),
+            email: lead.email || null,
+            gradeInterest: lead.gradeInterest || null,
+            source: lead.source || "Importación",
+            status: "Nuevo",
+            notes: lead.notes || "Importado masivamente",
+          },
+        })
+      )
+    );
+    
+    revalidatePath("/leads");
+    revalidatePath("/pipeline");
+    return { success: true, count: results.length };
+  } catch (error: any) {
+    console.error("IMPORT ERROR:", error);
+    return { success: false, error: error.message || "Error al importar los datos" };
+  }
+}
+
 export async function getLeads(filters?: LeadFilters) {
   const tenantId = await getTenantId();
 

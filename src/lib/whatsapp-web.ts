@@ -71,7 +71,7 @@ export async function initializeWhatsApp(): Promise<void> {
   try {
     const client = new Client({
       authStrategy: new LocalAuth({
-        dataPath: "/tmp/whatsapp-session",
+        dataPath: "./.wwebjs_auth",
       }),
       puppeteer: {
         headless: true,
