@@ -17,12 +17,16 @@ npm run dev          # http://localhost:5173 (el coach necesita `vercel dev` par
 | `GEMINI_API_KEY` | Vercel, solo servidor | Coach con IA. Nunca con prefijo `VITE_`. |
 | `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` | Vercel | Opcional. Activa Equipos. |
 | `ALLOWED_ORIGINS` | Vercel | Opcional. Dominios separados por coma (por defecto apex-council.vercel.app y localhost). |
+| `KV_REST_API_URL`, `KV_REST_API_TOKEN` | Vercel (los pone Upstash) | Topes diarios exactos. Sin ellos, el tope es por instancia. |
+| `DAILY_LIMIT_DEVICE`, `DAILY_LIMIT_IP`, `DAILY_LIMIT_GLOBAL` | Vercel | Opcional. Por defecto 10, 40 y 3000 mensajes al día. |
 
 ## Desplegar en el proyecto apex-council de Vercel
 
 1. Vercel → apex-council → Settings → Git: conecta este repo y pon **Root Directory = `apex`**.
 2. Settings → Environment Variables: agrega `GEMINI_API_KEY`.
 3. Cada push a la rama genera una vista previa; promuévela a producción cuando la apruebes.
+
+Guía paso a paso para cuentas y costos: [PASOS.md](PASOS.md).
 
 ## Activar Equipos
 
@@ -40,6 +44,5 @@ npm run dev          # http://localhost:5173 (el coach necesita `vercel dev` par
 
 ## Pendiente
 
-- Límite de peticiones global con Upstash Redis (el actual es por instancia).
 - Cobros (Stripe o Payphone) cuando haya precio validado con líderes.
 - Recordatorios por WhatsApp (API oficial de Meta).

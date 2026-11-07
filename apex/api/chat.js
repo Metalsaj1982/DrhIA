@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { buildSystemPrompt } from './_mentors.js';
+import { consume } from './_limits.js';
 
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'https://apex-council.vercel.app,http://localhost:5173')
   .split(',')
@@ -7,10 +8,11 @@ const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'https://apex-council.ve
   .filter(Boolean);
 
 const MAX_MESSAGE = 1500;
-const MAX_HISTORY = 12;
+const MAX_HISTORY = 6;
 const RATE_LIMIT = 15;
 const RATE_WINDOW_MS = 60_000;
-const MODELS = ['gemini-2.5-flash', 'gemini-2.5-flash-lite', 'gemini-2.0-flash'];
+// Primero el modelo barato; Flash solo si Flash-Lite falla.
+const MODELS = ['gemini-2.5-flash-lite', 'gemini-2.5-flash'];
 
 // Límite en memoria, de mejor esfuerzo (cada instancia lleva su cuenta).
 // Para un límite global, cambia esto por Upstash Redis del Marketplace de Vercel.
@@ -53,12 +55,21 @@ export default async function handler(req, res) {
     return res.status(429).json({ error: 'Demasiados mensajes seguidos. Espera un minuto.' });
   }
 
-  const { mentor, message, context, history } = req.body || {};
+  const { mentor, message, context, history, device } = req.body || {};
   const text = clip(message, MAX_MESSAGE).trim();
   if (!text) return res.status(400).json({ error: 'Escribe un mensaje.' });
 
   const key = process.env.GEMINI_API_KEY;
   if (!key) return res.status(500).json({ error: 'Falta GEMINI_API_KEY en el servidor.' });
+
+  // Tope diario: por teléfono, por red y total de la app. Se cuenta antes de llamar a la IA.
+  const quota = await consume({ device, ip });
+  if (!quota.ok) {
+    const error = quota.reason === 'global'
+      ? 'El coach alcanzó su límite de hoy. Vuelve mañana; tus hábitos se siguen guardando.'
+      : 'Usaste tus mensajes de hoy con el coach. Vuelve mañana.';
+    return res.status(429).json({ error, limit: quota.reason });
+  }
 
   const pastTurns = (Array.isArray(history) ? history : [])
     .slice(-MAX_HISTORY)
@@ -75,10 +86,10 @@ export default async function handler(req, res) {
   for (const model of MODELS) {
     try {
       const chat = genAI
-        .getGenerativeModel({ model, systemInstruction, generationConfig: { maxOutputTokens: 400, temperature: 0.7 } })
+        .getGenerativeModel({ model, systemInstruction, generationConfig: { maxOutputTokens: 300, temperature: 0.7 } })
         .startChat({ history: pastTurns });
       const result = await chat.sendMessage(text);
-      return res.status(200).json({ text: result.response.text() });
+      return res.status(200).json({ text: result.response.text(), remaining: quota.remaining });
     } catch (err) {
       console.error(`[chat] ${model}:`, err?.message);
     }

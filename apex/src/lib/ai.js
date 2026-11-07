@@ -1,5 +1,19 @@
 import { dayKey } from './store.js';
 
+// Id anónimo del teléfono, para contar el tope diario de mensajes.
+function deviceId() {
+  try {
+    let id = localStorage.getItem('apex.device');
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem('apex.device', id);
+    }
+    return id;
+  } catch {
+    return 'sin-id';
+  }
+}
+
 // El navegador manda solo el id del mentor y datos del usuario; el prompt se arma en el servidor.
 export async function askCoach({ mentor, message, profile, done = 0, streak = 0, history = [] }) {
   try {
@@ -9,6 +23,7 @@ export async function askCoach({ mentor, message, profile, done = 0, streak = 0,
       body: JSON.stringify({
         mentor,
         message,
+        device: deviceId(),
         history,
         context: {
           name: profile?.name,

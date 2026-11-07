@@ -88,9 +88,13 @@ export default function Today({ state, setState }) {
       <section className="illari">
         <h2>ILLARI</h2>
         {note ? <p className="illari-note">{note}</p> : <p className="muted">Pide tu mensaje de hoy cuando quieras.</p>}
-        <button className="btn btn--ghost" onClick={getNote} disabled={loading}>
-          {loading ? 'ILLARI está escribiendo…' : note ? 'Pedir otro mensaje' : 'Recibir mi mensaje de hoy'}
-        </button>
+        {note ? (
+          <p className="fineprint">Tu próximo mensaje llega mañana. Si necesitas más, habla con tu consejo en Coach.</p>
+        ) : (
+          <button className="btn btn--ghost" onClick={getNote} disabled={loading}>
+            {loading ? 'ILLARI está escribiendo…' : 'Recibir mi mensaje de hoy'}
+          </button>
+        )}
       </section>
     </main>
   );
