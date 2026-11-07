@@ -59,7 +59,8 @@ export default async function handler(req, res) {
   const text = clip(message, MAX_MESSAGE).trim();
   if (!text) return res.status(400).json({ error: 'Escribe un mensaje.' });
 
-  const key = process.env.GEMINI_API_KEY;
+  // VITE_GEMINI_API_KEY: nombre que usaba la v1. Solo se lee en el servidor (el navegador no la referencia).
+  const key = process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY;
   if (!key) return res.status(500).json({ error: 'Falta GEMINI_API_KEY en el servidor.' });
 
   // Tope diario: por teléfono, por red y total de la app. Se cuenta antes de llamar a la IA.
